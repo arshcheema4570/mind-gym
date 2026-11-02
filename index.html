@@ -48,10 +48,10 @@
   <!-- TRAIN -->
   <section id="tab-train" class="tab">
     <div class="grid2">
-      <button class="game" data-g="nback"><b>N-Back</b><span>working memory</span></button>
-      <button class="game" data-g="stroop"><b>Stroop</b><span>attention control</span></button>
-      <button class="game" data-g="react"><b>Reaction</b><span>processing speed</span></button>
-      <button class="game" data-g="seq"><b>Sequence</b><span>short-term memory</span></button>
+      <button class="game" data-g="nback"><span class="tile g-nback">🧠</span><b>N-Back</b><span>working memory</span><em class="gbest" id="gb-nback"></em></button>
+      <button class="game" data-g="stroop"><span class="tile g-stroop">🎯</span><b>Stroop</b><span>attention control</span><em class="gbest" id="gb-stroop"></em></button>
+      <button class="game" data-g="react"><span class="tile g-react">⚡</span><b>Reaction</b><span>processing speed</span><em class="gbest" id="gb-react"></em></button>
+      <button class="game" data-g="seq"><span class="tile g-seq">🔢</span><b>Sequence</b><span>short-term memory</span><em class="gbest" id="gb-seq"></em></button>
     </div>
     <div id="gameArea"></div>
   </section>
@@ -63,14 +63,14 @@
       <div class="stat"><b id="stGames">0</b><span>training rounds</span></div>
       <div class="stat"><b id="stStreak">0</b><span>day streak</span></div>
     </div>
-    <h3>Personal bests</h3>
+    <h3 class="sect">Personal bests</h3>
     <div class="cards3">
       <div class="stat"><b id="bN">–</b><span>N-back level</span></div>
       <div class="stat"><b id="bS">–</b><span>Stroop / 30s</span></div>
       <div class="stat"><b id="bR">–</b><span>reaction ms</span></div>
       <div class="stat"><b id="bQ">–</b><span>sequence</span></div>
     </div>
-    <h3>Last 7 days</h3>
+    <h3 class="sect">Last 7 days</h3>
     <div id="weekBars" class="bars"></div>
   </section>
 

@@ -80,13 +80,14 @@ document.querySelectorAll('#tabs button').forEach((b) => {
     b.classList.add('on');
     $('tab-' + b.dataset.tab).classList.add('on');
     if (b.dataset.tab === 'progress') renderProgress();
+    if (b.dataset.tab === 'train') refreshGameBests();
   };
 });
 
 /* ================= meditation sessions ================= */
 const SESSIONS = [
   {
-    id: 'focus', name: 'Focus Reset', desc: '5 min · sharpen attention before work', min: 5,
+    id: 'focus', name: 'Focus Reset', sub: 'Sharpen attention before work', min: 5,
     steps: [
       { say: 'Sit comfortably with your back straight but not stiff. Rest your hands on your legs. Gently close your eyes.', pause: 8 },
       { say: 'Take a deep breath in through your nose, filling your belly.', pause: 2 },
@@ -98,7 +99,7 @@ const SESSIONS = [
     ],
   },
   {
-    id: 'calm', name: 'Deep Calm', desc: '10 min · full body unwind', min: 10,
+    id: 'calm', name: 'Deep Calm', sub: 'Full-body unwind', min: 10,
     steps: [
       { say: 'Lie down or settle back in your chair. Let your whole body be supported. Close your eyes.', pause: 8 },
       { say: 'Take three slow breaths. In through the nose.', pause: 3, say2: 'Out through the mouth, releasing tension.' , pause2: 6 },
@@ -112,7 +113,7 @@ const SESSIONS = [
     ],
   },
   {
-    id: 'sleep', name: 'Sleep Wind-Down', desc: '8 min · drift off', min: 8,
+    id: 'sleep', name: 'Sleep Wind-Down', sub: 'Drift off gently', min: 8,
     steps: [
       { say: 'Lie comfortably in bed, on your back if you can. Close your eyes.', pause: 8 },
       { breathe: { in: 4, hold: 7, out: 8, cycles: 4 } },
@@ -125,7 +126,7 @@ const SESSIONS = [
     ],
   },
   {
-    id: 'stress', name: 'Stress Reset', desc: '5 min · box breathing to downshift', min: 5,
+    id: 'stress', name: 'Stress Reset', sub: 'Box breathing to downshift', min: 5,
     steps: [
       { say: 'Whatever just happened can wait five minutes. Sit back, unclench your jaw, drop your shoulders.', pause: 6 },
       { say: 'We will breathe in a box: four counts in, four hold, four out, four hold. Follow the circle.', pause: 4 },
@@ -146,12 +147,20 @@ function csleep(ms, run) {
   });
 }
 function renderSessions() {
+  const icons = { focus: '🎯', calm: '🌊', sleep: '🌙', stress: '💨' };
   $('sessList').innerHTML = SESSIONS.map((s) =>
-    `<div class="sess"><div><b>${s.name}</b><div class="mut">${s.desc}</div></div><button class="btn sm" data-sess="${s.id}">Start</button></div>`
+    `<button class="sess" data-sess="${s.id}"><span class="tile g-${s.id}">${icons[s.id] || '🧘'}</span><span class="sess-tx"><b>${s.name}</b><span>${s.sub}</span></span><span class="chip">${s.min} min</span></button>`
   ).join('');
   $('sessList').querySelectorAll('[data-sess]').forEach((b) => {
     b.onclick = () => startMeditation(SESSIONS.find((s) => s.id === b.dataset.sess));
   });
+}
+function refreshGameBests() {
+  const b = store.d.bests || {};
+  $('gb-nback').textContent = b.nback ? 'Best: N-' + b.nback : '';
+  $('gb-stroop').textContent = b.stroop ? 'Best: ' + b.stroop + ' / 30s' : '';
+  $('gb-react').textContent = b.react ? 'Best: ' + b.react + ' ms' : '';
+  $('gb-seq').textContent = b.seq ? 'Best: ' + b.seq : '';
 }
 function startMeditation(sess) {
   stopMeditation();
@@ -211,6 +220,7 @@ async function runSession(sess, run) {
   setTimeout(() => { if (medRun === run) stopMeditation(); }, 4000);
 }
 renderSessions();
+refreshGameBests();
 
 /* ================= games ================= */
 let gameToken = 0;
