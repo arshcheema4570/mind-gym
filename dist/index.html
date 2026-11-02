@@ -8,8 +8,8 @@
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="./icons/icon-192.png">
-  <script type="module" crossorigin src="./assets/index-DouHJc7n.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BPA6EUQP.css">
+  <script type="module" crossorigin src="./assets/index-BdrV-PPJ.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BlqSWTtm.css">
 </head>
 <body>
 <header>
@@ -30,19 +30,22 @@
 <main>
   <!-- MEDITATE -->
   <section id="tab-meditate" class="tab on">
-    <div class="row">
-      <div class="seg" id="engineSeg">
-        <button data-eng="phonon" class="on">🎙 Natural</button>
-        <button data-eng="device">🔊 Device</button>
-      </div>
-      <select id="voicePick" aria-label="Voice" disabled><option>Load the natural voice first</option></select>
-      <label class="mut">Rate <input id="rateIn" type="range" min="0.7" max="1.2" step="0.05" value="0.95"></label>
-    </div>
-    <div class="row" id="phononRow">
-      <button class="btn sm" id="phononBtn">Download natural voice</button>
-      <span class="mut small" id="phononStatus">One-time download (~35 MB), then offline forever.</span>
-    </div>
     <div id="sessList"></div>
+    <div class="center"><button class="linklike" id="voiceSettingsBtn">⚙︎ Voice settings</button></div>
+    <div class="card" id="voiceCard" hidden>
+      <div class="row">
+        <div class="seg" id="engineSeg">
+          <button data-eng="phonon" class="on">🎙 Natural</button>
+          <button data-eng="device">🔊 Device</button>
+        </div>
+        <select id="voicePick" aria-label="Voice" disabled><option>Load the natural voice first</option></select>
+        <label class="mut">Rate <input id="rateIn" type="range" min="0.7" max="1.2" step="0.05" value="0.95"></label>
+      </div>
+      <div class="row" id="phononRow">
+        <button class="btn sm" id="phononBtn">Download natural voice</button>
+        <span class="mut small" id="phononStatus">One-time download (~35 MB), then offline forever.</span>
+      </div>
+    </div>
     <div id="player" class="card" hidden>
       <h2 id="plTitle"></h2>
       <div id="breathWrap" hidden><div id="breathCircle"><span id="breathLabel">ready</span></div></div>

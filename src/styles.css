@@ -170,3 +170,5 @@ input[type="range"] { accent-color: var(--vio); }
 .seg button { background:none; border:0; color:var(--mut); font-size:12.5px; font-weight:700; padding:8px 14px; border-radius:10px; cursor:pointer; }
 .seg button.on { color:#fff; background:rgba(139,124,246,.32); box-shadow:inset 0 0 0 1px rgba(139,124,246,.45); }
 #phononBtn:disabled { opacity:.55; cursor:default; }
+.linklike { background:none; border:0; color:var(--mut); font-size:13px; padding:14px; cursor:pointer; }
+.linklike:active { color:var(--ink); }

@@ -60,28 +60,30 @@ async function loadPhonon() {
   if (tts) return;
   ensurePhononAudio(); // user gesture: unlock audio now
   const btn = $('phononBtn'), st = $('phononStatus');
+  const say = (t) => { st.textContent = t; if (!$('player').hidden) $('plStep').textContent = t; };
   btn.disabled = true; btn.textContent = 'Downloading…';
-  st.textContent = 'Downloading Phonon 31M — cached for offline use after this.';
+  say('Preparing natural voice…');
   try {
     tts = await PhononTTS.load({ lang: 'en', device: 'auto', quant: 'q8',
       onProgress: ({ loaded, total, cached }) => {
-        st.textContent = cached ? 'Reading the local model cache…'
-          : total ? `Caching voice model… ${Math.round((loaded / total) * 100)}%`
-          : `Caching voice model… ${Math.round(loaded / 1048576)} MB`;
+        say(cached ? 'Reading the local voice cache…'
+          : total ? `Preparing natural voice… ${Math.round((loaded / total) * 100)}%`
+          : `Preparing natural voice… ${Math.round(loaded / 1048576)} MB`);
       } });
     phononVoice = tts.voices[0];
     const pick = $('voicePick'); pick.innerHTML = '';
     tts.voices.forEach((v) => { const o = document.createElement('option'); o.value = v; o.textContent = v; pick.appendChild(o); });
     pick.disabled = false;
     btn.textContent = 'Natural voice ready ✓';
-    st.textContent = `Ready offline · ${tts.voices.length} voices · running on ${tts.device === 'webgpu' ? 'WebGPU' : 'CPU'}`;
+    say(`Natural voice ready · ${tts.voices.length} voices · offline from now on`);
   } catch (e) {
     console.error(e);
     btn.disabled = false; btn.textContent = 'Try again';
-    st.textContent = 'Download failed — check connection and retry. (Needs HTTPS or localhost.)';
+    say('Download failed — check connection and retry. (Needs HTTPS or localhost.)');
   }
 }
 $('phononBtn').onclick = loadPhonon;
+$('voiceSettingsBtn').onclick = () => { $('voiceCard').hidden = !$('voiceCard').hidden; };
 
 function speakDevice(text) {
   return new Promise((resolve) => {
@@ -267,16 +269,20 @@ function refreshGameBests() {
 }
 async function startMeditation(sess) {
   stopMeditation();
-  if (engine === 'phonon') ensurePhononAudio(); // user gesture: unlock audio
-  if (engine === 'phonon' && !tts) {
-    $('plStep').textContent = '';
-    await loadPhonon(); // one-time download; speak() falls back to device TTS if it fails
-    if (!tts && engine === 'phonon') $('plStep').textContent = 'Natural voice unavailable — using device voice.';
-  }
   const run = { cancelled: false, t0: Date.now(), abort: new AbortController() }; medRun = run;
   lastEnd = 0;
-  $('sessList').hidden = true; $('player').hidden = false;
+  $('sessList').hidden = true; $('voiceCard').hidden = true; $('player').hidden = false;
   $('plTitle').textContent = sess.name;
+  $('plStep').textContent = '';
+  $('plBar').style.width = '0%';
+  $('breathWrap').hidden = true;
+  if (engine === 'phonon') ensurePhononAudio(); // user gesture: unlock audio
+  if (engine === 'phonon' && !tts) {
+    $('plStep').textContent = 'Preparing natural voice…';
+    await loadPhonon(); // one-time download; speak() falls back to device TTS if it fails
+    if (run.cancelled) return;
+    if (!tts) $('plStep').textContent = 'Natural voice unavailable — using device voice.';
+  }
   runSession(sess, run);
 }
 function stopMeditation() {
