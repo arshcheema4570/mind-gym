@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0c0f">
+<title>Mind Gym — offline meditation + brain training</title>
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <script type="module" crossorigin src="./assets/index-DouHJc7n.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BPA6EUQP.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img src="./icons/icon.svg" alt="" width="28" height="28">
+    <div><h1>Mind Gym</h1><p>offline meditation + brain training</p></div>
+  </div>
+  <div class="streak" title="Consecutive active days">🔥 <b id="streakN">0</b></div>
+</header>
+
+<nav id="tabs">
+  <button data-tab="meditate" class="on">🧘 Meditate</button>
+  <button data-tab="train">🧠 Train</button>
+  <button data-tab="progress">📊 Progress</button>
+  <button data-tab="why">❓ Why it works</button>
+</nav>
+
+<main>
+  <!-- MEDITATE -->
+  <section id="tab-meditate" class="tab on">
+    <div class="row">
+      <div class="seg" id="engineSeg">
+        <button data-eng="phonon" class="on">🎙 Natural</button>
+        <button data-eng="device">🔊 Device</button>
+      </div>
+      <select id="voicePick" aria-label="Voice" disabled><option>Load the natural voice first</option></select>
+      <label class="mut">Rate <input id="rateIn" type="range" min="0.7" max="1.2" step="0.05" value="0.95"></label>
+    </div>
+    <div class="row" id="phononRow">
+      <button class="btn sm" id="phononBtn">Download natural voice</button>
+      <span class="mut small" id="phononStatus">One-time download (~35 MB), then offline forever.</span>
+    </div>
+    <div id="sessList"></div>
+    <div id="player" class="card" hidden>
+      <h2 id="plTitle"></h2>
+      <div id="breathWrap" hidden><div id="breathCircle"><span id="breathLabel">ready</span></div></div>
+      <p id="plStep" class="mut"></p>
+      <div class="pbar"><div id="plBar"></div></div>
+      <div class="row center">
+        <button class="btn" id="plStop">⏹ Stop</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAIN -->
+  <section id="tab-train" class="tab">
+    <div class="grid2">
+      <button class="game" data-g="nback"><span class="tile g-nback">🧠</span><b>N-Back</b><span>working memory</span><em class="gbest" id="gb-nback"></em></button>
+      <button class="game" data-g="stroop"><span class="tile g-stroop">🎯</span><b>Stroop</b><span>attention control</span><em class="gbest" id="gb-stroop"></em></button>
+      <button class="game" data-g="react"><span class="tile g-react">⚡</span><b>Reaction</b><span>processing speed</span><em class="gbest" id="gb-react"></em></button>
+      <button class="game" data-g="seq"><span class="tile g-seq">🔢</span><b>Sequence</b><span>short-term memory</span><em class="gbest" id="gb-seq"></em></button>
+    </div>
+    <div id="gameArea"></div>
+  </section>
+
+  <!-- PROGRESS -->
+  <section id="tab-progress" class="tab">
+    <div class="cards3">
+      <div class="stat"><b id="stMin">0</b><span>meditation min</span></div>
+      <div class="stat"><b id="stGames">0</b><span>training rounds</span></div>
+      <div class="stat"><b id="stStreak">0</b><span>day streak</span></div>
+    </div>
+    <h3 class="sect">Personal bests</h3>
+    <div class="cards3">
+      <div class="stat"><b id="bN">–</b><span>N-back level</span></div>
+      <div class="stat"><b id="bS">–</b><span>Stroop / 30s</span></div>
+      <div class="stat"><b id="bR">–</b><span>reaction ms</span></div>
+      <div class="stat"><b id="bQ">–</b><span>sequence</span></div>
+    </div>
+    <h3 class="sect">Last 7 days</h3>
+    <div id="weekBars" class="bars"></div>
+  </section>
+
+  <!-- WHY -->
+  <section id="tab-why" class="tab">
+    <div class="card"><h3>N-Back → working memory</h3><p>The most-studied working-memory exercise in cognitive science. Regular practice is linked to gains on working-memory tasks.</p></div>
+    <div class="card"><h3>Stroop → attention control</h3><p>Naming ink colors while ignoring the word trains selective attention and mental flexibility — core executive functions.</p></div>
+    <div class="card"><h3>Mindfulness → stress &amp; focus</h3><p>Meta-analyses link regular mindfulness practice to lower perceived stress and better sustained attention.</p></div>
+    <div class="card"><h3>Slow breathing → calm physiology</h3><p>Extended exhales stimulate the vagus nerve and shift the nervous system toward rest — measurable within minutes.</p></div>
+    <p class="mut small">Honest note: brain-training gains are strongest on the trained skill itself. This app targets the exercises with the best evidence and tracks your numbers so you can see your own trend.</p>
+  </section>
+</main>
+
+</body>
+</html>
